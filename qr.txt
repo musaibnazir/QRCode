@@ -1,0 +1,89 @@
+sudo apt-get update
+sudo apt-get install python-qrtools
+
+[sudo] pip install pypng
+[sudo] pip install zbar
+[sudo] pip install pillow
+
+# Python 2.x program to generate QR code 
+from qrtools 
+import QR 
+
+# creates the QR object 
+my_QR = QR(data = u"Example") 
+
+# encodes to a QR code 
+my_QR.encode() 
+
+
+
+print my_QR.filename
+
+
+# Python 2.x program to generate QR code 
+from qrtools import QR 
+
+import os 
+my_QR = QR(data = u"Example") 
+my_QR.encode() 
+
+# command to move the QR code to the desktop 
+os.system("sudo mv " + my_QR.filename + " ~/Desktop") 
+
+
+
+my_QR = QR(data = u"example", pixel_size = 10)
+
+# use these for custom data formats eg. url, phone number, VCARD 
+# data should be an unicode object or a list of unicode objects 
+data_encode = { 
+	'text': lambda data: data, 
+	'url': encode_url, 
+	'email': lambda data: 'mailto:' + re.compile( 
+		r'^mailto:', re.IGNORECASE 
+	).sub('', data), 
+	'emailmessage': lambda data: 'MATMSG:TO:' + data[0] + ';SUB:' + data[1] +
+						';BODY:' + data[2] + ';;', 
+	'telephone': lambda data: 'tel:' + re.compile( 
+		r'^tel:', re.IGNORECASE 
+	).sub('', data), 
+	'sms': lambda data: 'SMSTO:' + data[0] + ':' + data[1], 
+	'mms': lambda data: 'MMSTO:' + data[0] + ':' + data[1], 
+	'geo': lambda data: 'geo:' + data[0] + ', ' + data[1], 
+	'bookmark': lambda data: "MEBKM:TITLE:" + data[0] + ";URL:" +
+									data[1] + ";;", 
+	# phonebook or meCard should be a list of tuples like this: 
+	# [('N', 'Name'), ('TEL', '231698890'), ...] 
+	'phonebook': lambda data: "MECARD:" + ";".join([":".join(i) 
+										for i in data]) + ";"
+} 
+
+
+
+# Python 2.x program to generate QR code 
+from qrtools import QR 
+
+# creates the QR object 
+my_QR = QR(data = [u"geeksforgeeks", u"https://www.geeksforgeeks.org/"], 
+									data_type = 'bookmark') 
+
+# encodes to a QR code 
+my_QR.encode() 
+
+
+
+
+# Python 2.x program to Scan and Read a QR code 
+from qrtools import QR 
+my_QR = QR(filename = "home/user/Desktop/qr.png") 
+
+# decodes the QR code and returns True if successful 
+my_QR.decode() 
+
+# prints the data 
+print my_QR.data 
+
+
+print my_QR.data_type
+print my_QR.pixel_size
+print my_QR.margin_size
